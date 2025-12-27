@@ -1,0 +1,590 @@
+.gift-wrapper {
+  perspective: 1000px;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gift-box {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  transform: rotateX(-15deg) rotateY(15deg);
+}
+
+.gift-box.hovered {
+  transform: rotateX(-10deg) rotateY(25deg) translateY(-15px) scale(1.05);
+}
+
+.gift-box.opened {
+  transform: rotateX(0deg) rotateY(0deg) translateY(-20px) scale(1.1);
+}
+
+.gift-box-face {
+  position: absolute;
+  backface-visibility: hidden;
+  overflow: hidden;
+  width: 200px;
+  height: 200px;
+}
+
+/* Patrón de papel de regalo */
+.wrapping-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--gift-primary);
+  opacity: 0.95;
+}
+
+/* Patrón de puntos */
+.gift-box.pattern-dots .wrapping-pattern::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle, var(--gift-secondary) 2px, transparent 2px);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+  opacity: 0.6;
+}
+
+/* Patrón de rayas */
+.gift-box.pattern-stripes .wrapping-pattern::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--gift-primary),
+    var(--gift-primary) 10px,
+    var(--gift-secondary) 10px,
+    var(--gift-secondary) 20px
+  );
+  opacity: 0.8;
+}
+
+.gift-front {
+  background: var(--gift-primary);
+  transform: translateZ(100px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    inset 0 0 20px rgba(0, 0, 0, 0.1),
+    0 0 30px rgba(0, 0, 0, 0.2);
+}
+
+.gift-box.opened .gift-front {
+  background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+}
+
+.gift-box.opened .gift-front .wrapping-pattern {
+  opacity: 0.3;
+}
+
+.gift-back {
+  background: var(--gift-primary);
+  transform: translateZ(-100px) rotateY(180deg);
+  box-shadow: 
+    inset 0 0 20px rgba(0, 0, 0, 0.1),
+    0 0 30px rgba(0, 0, 0, 0.2);
+}
+
+.gift-right {
+  background: var(--gift-secondary);
+  transform: rotateY(90deg) translateZ(100px);
+  box-shadow: 
+    inset 0 0 20px rgba(0, 0, 0, 0.15),
+    0 0 25px rgba(0, 0, 0, 0.2);
+}
+
+.gift-left {
+  background: var(--gift-secondary);
+  transform: rotateY(-90deg) translateZ(100px);
+  box-shadow: 
+    inset 0 0 20px rgba(0, 0, 0, 0.15),
+    0 0 25px rgba(0, 0, 0, 0.2);
+}
+
+.gift-top {
+  background: var(--gift-primary);
+  transform: rotateX(90deg) translateZ(100px);
+  transform-origin: center center;
+  box-shadow: 
+    inset 0 0 30px rgba(255, 255, 255, 0.2),
+    0 0 40px rgba(0, 0, 0, 0.15);
+  transition: transform 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.gift-top.lid-open {
+  transform: rotateX(90deg) translateZ(100px) rotateX(-110deg);
+  transform-origin: center center;
+}
+
+.gift-bottom {
+  background: var(--gift-secondary);
+  transform: rotateX(-90deg) translateZ(100px);
+  box-shadow: 
+    0 -8px 30px rgba(0, 0, 0, 0.3),
+    inset 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.gift-number {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: rgba(255, 255, 255, 0.98);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #2a5298;
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.2),
+    inset 0 1px 3px rgba(255, 255, 255, 0.8);
+  z-index: 20;
+  border: 2px solid rgba(42, 82, 152, 0.15);
+}
+
+/* Contenido del regalo que aparece cuando se abre */
+.gift-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.8) translateY(20px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.4s;
+  z-index: 5;
+  pointer-events: none;
+  padding: 20px;
+}
+
+.gift-content.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.gift-title-inside {
+  background: rgba(255, 255, 255, 0.98);
+  padding: 15px 20px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  text-align: center;
+  color: #2a5298;
+  font-weight: 500;
+  line-height: 1.4;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  max-width: 90%;
+}
+
+/* Contenedor de listones */
+.ribbon-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  z-index: 15;
+  pointer-events: none;
+  transition: opacity 0.6s ease-out, transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.ribbon-container.ribbon-open {
+  opacity: 0;
+  transform: scale(1.2) translateY(-30px);
+}
+
+/* Listón horizontal mejorado con efecto 3D */
+.ribbon-horizontal {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 24px;
+  transform: translateY(-50%) translateZ(105px);
+  transform-style: preserve-3d;
+}
+
+.ribbon-band-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background: linear-gradient(90deg, 
+    #a93226 0%, 
+    #c0392b 20%, 
+    #e74c3c 50%, 
+    #c0392b 80%, 
+    #a93226 100%
+  );
+  box-shadow: 
+    0 3px 10px rgba(0, 0, 0, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.35),
+    inset 0 -1px 3px rgba(0, 0, 0, 0.3);
+  border-top: 2px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  transform: rotateX(5deg);
+  transform-origin: bottom;
+}
+
+.ribbon-band-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background: linear-gradient(90deg, 
+    #8b2415 0%, 
+    #a93226 20%, 
+    #c0392b 50%, 
+    #a93226 80%, 
+    #8b2415 100%
+  );
+  box-shadow: 
+    0 -3px 10px rgba(0, 0, 0, 0.4),
+    inset 0 -2px 4px rgba(255, 255, 255, 0.25),
+    inset 0 1px 3px rgba(0, 0, 0, 0.3);
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+  transform: rotateX(-5deg);
+  transform-origin: top;
+}
+
+/* Listón vertical mejorado con efecto 3D */
+.ribbon-vertical-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 24px;
+  height: 100%;
+  transform: translateX(-50%) translateZ(105px);
+  transform-style: preserve-3d;
+}
+
+.ribbon-band-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 12px;
+  height: 100%;
+  background: linear-gradient(180deg, 
+    #a93226 0%, 
+    #c0392b 20%, 
+    #e74c3c 50%, 
+    #c0392b 80%, 
+    #a93226 100%
+  );
+  box-shadow: 
+    3px 0 10px rgba(0, 0, 0, 0.4),
+    inset 2px 0 4px rgba(255, 255, 255, 0.35),
+    inset -1px 0 3px rgba(0, 0, 0, 0.3);
+  border-left: 2px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
+  transform: rotateY(-5deg);
+  transform-origin: right;
+}
+
+.ribbon-band-right {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 12px;
+  height: 100%;
+  background: linear-gradient(180deg, 
+    #8b2415 0%, 
+    #a93226 20%, 
+    #c0392b 50%, 
+    #a93226 80%, 
+    #8b2415 100%
+  );
+  box-shadow: 
+    -3px 0 10px rgba(0, 0, 0, 0.4),
+    inset -2px 0 4px rgba(255, 255, 255, 0.25),
+    inset 1px 0 3px rgba(0, 0, 0, 0.3);
+  border-left: 1px solid rgba(0, 0, 0, 0.3);
+  border-right: 2px solid rgba(255, 255, 255, 0.4);
+  transform: rotateY(5deg);
+  transform-origin: left;
+}
+
+/* Animación de apertura de listones */
+.ribbon-container.ribbon-open .ribbon-band-top {
+  animation: ribbonUnfoldTop 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.ribbon-container.ribbon-open .ribbon-band-bottom {
+  animation: ribbonUnfoldBottom 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.ribbon-container.ribbon-open .ribbon-band-left {
+  animation: ribbonUnfoldLeft 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.ribbon-container.ribbon-open .ribbon-band-right {
+  animation: ribbonUnfoldRight 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes ribbonUnfoldTop {
+  0% {
+    transform: rotateX(5deg);
+  }
+  100% {
+    transform: rotateX(90deg) translateY(-50px);
+    opacity: 0;
+  }
+}
+
+@keyframes ribbonUnfoldBottom {
+  0% {
+    transform: rotateX(-5deg);
+  }
+  100% {
+    transform: rotateX(-90deg) translateY(50px);
+    opacity: 0;
+  }
+}
+
+@keyframes ribbonUnfoldLeft {
+  0% {
+    transform: rotateY(-5deg);
+  }
+  100% {
+    transform: rotateY(-90deg) translateX(-50px);
+    opacity: 0;
+  }
+}
+
+@keyframes ribbonUnfoldRight {
+  0% {
+    transform: rotateY(5deg);
+  }
+  100% {
+    transform: rotateY(90deg) translateX(50px);
+    opacity: 0;
+  }
+}
+
+/* Lazo mejorado */
+.ribbon-bow {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%) translateZ(110px);
+  width: 100px;
+  height: 75px;
+  z-index: 25;
+  pointer-events: none;
+  transform-style: preserve-3d;
+}
+
+.ribbon-container.ribbon-open .ribbon-bow {
+  animation: bowUntie 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes bowUntie {
+  0% {
+    transform: translateX(-50%) translateZ(110px) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-50%) translateZ(110px) scale(1.2) rotateZ(180deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(-50%) translateZ(110px) scale(0.5) rotateZ(360deg) translateY(-100px);
+    opacity: 0;
+  }
+}
+
+.bow-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  border-radius: 50%;
+  box-shadow: 
+    0 4px 15px rgba(192, 57, 43, 0.6),
+    inset 0 3px 6px rgba(255, 255, 255, 0.5),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.3);
+  z-index: 3;
+  border: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.bow-loop {
+  position: absolute;
+  top: 3px;
+  width: 45px;
+  height: 55px;
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 50%, #a93226 100%);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  box-shadow: 
+    0 5px 18px rgba(0, 0, 0, 0.5),
+    inset 0 3px 6px rgba(255, 255, 255, 0.4),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.bow-left {
+  left: 2px;
+  transform: rotate(-35deg);
+}
+
+.bow-right {
+  right: 2px;
+  transform: rotate(35deg);
+}
+
+.bow-tail {
+  position: absolute;
+  top: 58px;
+  width: 28px;
+  height: 45px;
+  background: linear-gradient(180deg, #c0392b, #a93226);
+  border-radius: 0 0 50% 50%;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+.bow-tail-left {
+  left: 12px;
+  transform: rotate(-20deg);
+}
+
+.bow-tail-right {
+  right: 12px;
+  transform: rotate(20deg);
+}
+
+.gift-box.hovered .ribbon-bow {
+  animation: bowBounce 0.6s ease-in-out;
+}
+
+.gift-box.hovered .bow-loop {
+  animation: bowLoopSway 0.8s ease-in-out infinite;
+}
+
+@keyframes bowBounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0) translateZ(110px);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px) translateZ(110px);
+  }
+}
+
+@keyframes bowLoopSway {
+  0%, 100% {
+    transform: rotate(-35deg) scaleY(1);
+  }
+  50% {
+    transform: rotate(-30deg) scaleY(1.08);
+  }
+}
+
+.gift-box.hovered .bow-right {
+  animation: bowLoopSwayRight 0.8s ease-in-out infinite;
+}
+
+@keyframes bowLoopSwayRight {
+  0%, 100% {
+    transform: rotate(35deg) scaleY(1);
+  }
+  50% {
+    transform: rotate(30deg) scaleY(1.08);
+  }
+}
+
+@media (max-width: 768px) {
+  .gift-wrapper {
+    height: 220px;
+  }
+
+  .gift-box {
+    width: 160px;
+    height: 160px;
+  }
+
+  .gift-box-face {
+    width: 160px;
+    height: 160px;
+  }
+
+  .gift-front {
+    transform: translateZ(80px);
+  }
+
+  .gift-back {
+    transform: translateZ(-80px) rotateY(180deg);
+  }
+
+  .gift-right {
+    transform: rotateY(90deg) translateZ(80px);
+  }
+
+  .gift-left {
+    transform: rotateY(-90deg) translateZ(80px);
+  }
+
+  .gift-top {
+    transform: rotateX(90deg) translateZ(80px);
+  }
+
+  .gift-top.lid-open {
+    transform: rotateX(90deg) translateZ(80px) rotateX(-110deg);
+  }
+
+  .gift-bottom {
+    transform: rotateX(-90deg) translateZ(80px);
+  }
+
+  .ribbon-horizontal {
+    transform: translateY(-50%) translateZ(85px);
+    height: 20px;
+  }
+
+  .ribbon-vertical-container {
+    transform: translateX(-50%) translateZ(85px);
+    width: 20px;
+  }
+
+  .ribbon-bow {
+    transform: translateX(-50%) translateZ(90px);
+    width: 80px;
+    height: 60px;
+    top: -20px;
+  }
+
+  .gift-number {
+    width: 35px;
+    height: 35px;
+    font-size: 0.95rem;
+    top: 10px;
+    left: 10px;
+  }
+}
