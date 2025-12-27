@@ -1,5 +1,7 @@
 import { useEffect } from 'react'
 import './GiftModal.css'
+import AmazonModal from './AmazonModal'
+import TicketModal from './TicketModal'
 
 function GiftModal({ gift, onClose }) {
   useEffect(() => {
@@ -9,6 +11,17 @@ function GiftModal({ gift, onClose }) {
     }
   }, [])
 
+  // Modal especial para Amazon (regalo 27)
+  if (gift.id === 27) {
+    return <AmazonModal gift={gift} onClose={onClose} />
+  }
+
+  // Modal especial para ticket de carrera (regalo 22)
+  if (gift.id === 22) {
+    return <TicketModal gift={gift} onClose={onClose} />
+  }
+
+  // Modal estándar para los demás regalos
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose()
@@ -29,11 +42,6 @@ function GiftModal({ gift, onClose }) {
         </div>
         <div className="modal-body">
           <h2 className="modal-title">{gift.title}</h2>
-          {gift.specialMessage && (
-            <div className="modal-special-message">
-              <p>{gift.specialMessage}</p>
-            </div>
-          )}
           <div className="modal-decoration">
             <div className="decoration-line"></div>
             <div className="decoration-star">

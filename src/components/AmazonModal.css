@@ -1,0 +1,277 @@
+.amazon-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.4s ease-out;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.amazon-email-container {
+  position: relative;
+  max-width: 700px;
+  width: 100%;
+  margin: 40px auto;
+  animation: slideIn 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.amazon-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  z-index: 10;
+}
+
+.amazon-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg) scale(1.1);
+}
+
+.amazon-email {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.amazon-header {
+  background: linear-gradient(to bottom, #232f3e, #131921);
+  padding: 20px 30px;
+  border-bottom: 3px solid #ff9900;
+}
+
+.amazon-logo {
+  display: flex;
+  align-items: baseline;
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: -1px;
+}
+
+.amazon-logo-text {
+  color: #ffffff;
+}
+
+.amazon-logo-dot {
+  color: #ff9900;
+}
+
+.amazon-logo-com {
+  color: #ffffff;
+}
+
+.amazon-email-content {
+  padding: 30px;
+  background: #ffffff;
+}
+
+.amazon-email-header {
+  border-bottom: 1px solid #e7e7e7;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.amazon-from {
+  color: #333333;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.amazon-date {
+  color: #666666;
+  font-size: 13px;
+}
+
+.amazon-subject {
+  color: #333333;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-left: 4px solid #ff9900;
+  border-radius: 4px;
+}
+
+.amazon-body {
+  color: #333333;
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+.amazon-greeting {
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.amazon-order-box {
+  background: #f8f9fa;
+  border: 1px solid #e7e7e7;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 25px 0;
+}
+
+.amazon-order-header {
+  color: #131921;
+  font-size: 16px;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ff9900;
+}
+
+.amazon-order-item {
+  background: white;
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid #e7e7e7;
+}
+
+.amazon-item-name {
+  color: #131921;
+  font-size: 15px;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.amazon-item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.amazon-item-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #666666;
+}
+
+.amazon-item-row span:first-child {
+  font-weight: 500;
+  color: #333333;
+}
+
+.amazon-delayed .amazon-delayed-text {
+  color: #d13212;
+  font-weight: 600;
+  text-decoration: line-through;
+}
+
+.amazon-new-date .amazon-new-date-text {
+  color: #ff9900;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.amazon-notice {
+  background: #fff4e6;
+  border-left: 4px solid #ff9900;
+  padding: 20px;
+  margin: 25px 0;
+  border-radius: 4px;
+}
+
+.amazon-notice p {
+  margin: 10px 0;
+  color: #333333;
+}
+
+.amazon-tracking {
+  margin: 25px 0;
+  padding: 15px;
+  background: #f0f8ff;
+  border-radius: 6px;
+}
+
+.amazon-tracking p {
+  margin-bottom: 10px;
+  color: #131921;
+  font-weight: 600;
+}
+
+.amazon-tracking-link {
+  color: #0066c0;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.amazon-tracking-link:hover {
+  color: #ff9900;
+}
+
+.amazon-signature {
+  margin-top: 30px;
+  color: #333333;
+  font-size: 14px;
+}
+
+.amazon-footer {
+  background: #f8f9fa;
+  padding: 20px 30px;
+  text-align: center;
+  color: #666666;
+  font-size: 12px;
+  border-top: 1px solid #e7e7e7;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .amazon-email-container {
+    margin: 20px auto;
+  }
+
+  .amazon-email-content {
+    padding: 20px;
+  }
+
+  .amazon-header {
+    padding: 15px 20px;
+  }
+
+  .amazon-logo {
+    font-size: 24px;
+  }
+}
+
