@@ -2,6 +2,12 @@ import { useEffect } from 'react'
 import './GiftModal.css'
 import AmazonModal from './AmazonModal'
 import TicketModal from './TicketModal'
+import PhotoSessionModal from './PhotoSessionModal'
+import ConcertModal from './ConcertModal'
+import SpaModal from './SpaModal'
+import WarnerBrosModal from './WarnerBrosModal'
+import SkydivingModal from './SkydivingModal'
+import SushiModal from './SushiModal'
 
 function GiftModal({ gift, onClose }) {
   useEffect(() => {
@@ -19,6 +25,36 @@ function GiftModal({ gift, onClose }) {
   // Modal especial para ticket de carrera (regalo 22)
   if (gift.id === 22) {
     return <TicketModal gift={gift} onClose={onClose} />
+  }
+
+  // Modal especial para sesión de fotos (regalo 17)
+  if (gift.id === 17) {
+    return <PhotoSessionModal gift={gift} onClose={onClose} />
+  }
+
+  // Modal especial para concierto (regalo 25)
+  if (gift.id === 25) {
+    return <ConcertModal gift={gift} onClose={onClose} />
+  }
+
+  // Modal especial para SPA (regalo 11)
+  if (gift.id === 11) {
+    return <SpaModal gift={gift} onClose={onClose} />
+  }
+
+  // Modal especial para Warner Bros (regalo 18)
+  if (gift.id === 18) {
+    return <WarnerBrosModal gift={gift} onClose={onClose} />
+  }
+
+  // Modal especial para paracaidismo (regalo 23)
+  if (gift.id === 23) {
+    return <SkydivingModal gift={gift} onClose={onClose} />
+  }
+
+  // Modal especial para sushi (regalo 24)
+  if (gift.id === 24) {
+    return <SushiModal gift={gift} onClose={onClose} />
   }
 
   // Modal estándar para los demás regalos

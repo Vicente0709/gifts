@@ -1,0 +1,237 @@
+.sushi-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.4s ease-out;
+  padding: 20px;
+}
+
+.sushi-reservation {
+  position: relative;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border-radius: 20px;
+  max-width: 550px;
+  width: 100%;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+  animation: slideIn 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.sushi-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  z-index: 10;
+}
+
+.sushi-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg) scale(1.1);
+}
+
+.sushi-header {
+  padding: 40px 30px;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(220, 20, 60, 0.3), rgba(139, 0, 0, 0.3));
+  border-bottom: 3px solid #dc143c;
+  position: relative;
+}
+
+.sushi-number {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.sushi-logo {
+  position: relative;
+}
+
+.sushi-icon {
+  font-size: 4rem;
+  margin-bottom: 15px;
+  animation: rotate 3s ease-in-out infinite;
+  filter: drop-shadow(0 4px 10px rgba(220, 20, 60, 0.5));
+}
+
+@keyframes rotate {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(10deg) scale(1.1); }
+}
+
+.sushi-name {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #dc143c;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 10px rgba(220, 20, 60, 0.5);
+}
+
+.sushi-content {
+  padding: 40px 30px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.sushi-title {
+  font-size: 2.2rem;
+  color: #dc143c;
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: 700;
+  text-shadow: 0 2px 10px rgba(220, 20, 60, 0.3);
+}
+
+.sushi-subtitle {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.1rem;
+  margin-bottom: 35px;
+  font-weight: 300;
+}
+
+.sushi-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.sushi-detail-item {
+  padding: 20px;
+  background: rgba(220, 20, 60, 0.1);
+  border: 2px solid rgba(220, 20, 60, 0.3);
+  border-radius: 12px;
+  transition: all 0.3s;
+}
+
+.sushi-detail-item:hover {
+  background: rgba(220, 20, 60, 0.15);
+  transform: translateX(5px);
+  border-color: #dc143c;
+}
+
+.detail-label {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.detail-value {
+  font-size: 1.1rem;
+  color: white;
+  font-weight: 500;
+}
+
+.sushi-message {
+  background: rgba(220, 20, 60, 0.1);
+  border-left: 4px solid #dc143c;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 25px;
+}
+
+.sushi-message p {
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.8;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.sushi-footer {
+  padding: 30px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.3);
+  border-top: 1px solid rgba(220, 20, 60, 0.2);
+}
+
+.sushi-button {
+  background: linear-gradient(135deg, #dc143c, #8b0000);
+  border: none;
+  padding: 16px 45px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 8px 25px rgba(220, 20, 60, 0.4);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: 0.5px;
+}
+
+.sushi-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(220, 20, 60, 0.6);
+  background: linear-gradient(135deg, #ff1744, #b71c1c);
+}
+
+.sushi-button:active {
+  transform: translateY(-1px);
+}
+
+.sushi-button svg {
+  transition: transform 0.3s;
+}
+
+.sushi-button:hover svg {
+  transform: translateX(3px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .sushi-title {
+    font-size: 1.8rem;
+  }
+  
+  .sushi-content {
+    padding: 30px 20px;
+  }
+}
+
